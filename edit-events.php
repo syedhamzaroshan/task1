@@ -7,7 +7,7 @@ include('configuration/db.php');
 
 <html>  
 <head>  
-<title>JavaScript FullCalendar</title>
+<title>Edit Events</title>
 
 <link rel="stylesheet" href="css/bootstrap.min.css"/> 
 <link rel="stylesheet" href="css/fullcalendar.css" />
@@ -38,14 +38,10 @@ include('configuration/db.php');
 
 </head>
 <body>
-  <h2 style="text-align: center;">Events Calendar</h2>
+  <h2 style="text-align: center;">Javascript Fullcalendar</h2>
   <div class="container">
     <div class="row">
-        <div class="col-lg-6">
-   <div id="calendar"></div>
-</div>
-<div class="col">
-
+    
 <?php 
 
 if(isset($_POST['submit']))
@@ -57,11 +53,11 @@ if(isset($_POST['submit']))
   $start_date = $_POST['start_date'];
   $end_date = $_POST['end_date'];
   
-  $insert_query = mysqli_query($conn, "INSERT INTO event(event_name,eventtype,eventColor,eventbgcolor,event_start_date,event_end_date) VALUES('$title', '$eventtype', '$eventColor', '$eventbgcolor', '$start_date', '$end_date')");
+  $insert_query = mysqli_query($conn, "UPDATE event SET event_name = '$title', eventtype = '$eventtype', eventColor = '$eventColor', eventbgcolor = '$eventbgcolor', event_start_date = '$start_date', event_end_date = '$end_date' WHERE event_id = '".$_GET['id']."'");
   if($insert_query)
   {
-    echo "<script>alert('Added Successfully')</script>";
-    header('location:index.php');
+    echo "<script>alert('Updated Successfully')</script>";
+    header('location:view-events');
   }
   else
   {
@@ -71,20 +67,28 @@ if(isset($_POST['submit']))
 ?> 
     <div class="container">  
     <div class="table-responsive">  
-    <h3 style="text-align:center;">Create Event</h3><br/>
+    <h3 style="text-align:center;">Edit Event</h3><br/>
     <div class="box">
      <form method="POST" action="#">  
+     <?php 
 
+$fetch_event = mysqli_query($conn, "SELECT * FROM event WHERE event_id = '".$_GET['id']."'");
+if (mysqli_num_rows($fetch_event) > 0) 
+{
+       while($row = mysqli_fetch_array($fetch_event))
+       { 
+?>
        <div class="form-group">
        <label for="title">Enter Title of the Event</label>
-       <input type="text" name="title" id="title" placeholder="Enter Title" required 
+       <input type="text" name="title" id="title" value="<?php echo $row['event_name']; ?>" 
        data-parsley-type="title" data-parsley-trigg
        er="keyup" class="form-control"/>
       </div>
 
       <div class="form-group">
        <label for="title">Select Event</label>
-       <select class="form-control" name="eventtype" class="form-control" required>
+       <select class="form-control" name="eventtype" class="form-control">
+       <option value="<?php echo $row['eventtype']; ?>"><?php echo $row['eventtype']; ?></option>
         <option value="None">Select Event*</option>
         <option value="Checklist">Checklist</option>
         <option value="Event">Event</option>
@@ -94,70 +98,42 @@ if(isset($_POST['submit']))
 
       <div class="form-group">
        <label for="title">Select Text Color</label>
-       <input type="color" name="eventColor" class="form-control" id="eventColor" required="">
+       <input type="color" name="eventColor" class="form-control" value="<?php echo $row['eventColor']; ?>">
       </div>
 
       <div class="form-group">
        <label for="title">Select Bg-Color</label>
-       <input type="color" name="eventbgcolor" class="form-control" id="eventColor" required="">
+       <input type="color" name="eventbgcolor" class="form-control" value="<?php echo $row['eventbgcolor']; ?>">
       </div>
 
       <div class="form-group">
        <label for="date">Start Date</label>
-       <input type="date" name="start_date" id="start_date" required 
+       <input type="date" name="start_date" value="<?php echo $row['event_start_date']; ?>"  
        data-parsley-type="date" data-parsley-trigg
        er="keyup" class="form-control"/>
       </div>
 
       <div class="form-group">
        <label for="date">End Date</label>
-       <input type="date" name="end_date" id="end_date" required 
+       <input type="date" name="end_date" id="end_date"  value="<?php echo $row['event_end_date']; ?>" 
        data-parsley-type="date" data-parsley-trigg
        er="keyup" class="form-control"/>
       </div>
-      
+     <?php } } ?> 
       <div class="form-group">
-       <button type="submit" id="save-event" name="submit" type="submit" class="btn btn-success">Save Event</button>
+       <button type="submit" id="save-event" name="submit" type="submit" class="btn btn-success">Update Event</button>
        </div>
        <p class="error"><?php if(!empty($msg)){ echo $msg; } ?></p>
-       <a href="view-events" class="btn btn-primary">List Events</a> 
+       <a href="view-events" class="btn btn-primary">Go Back</a> 
      </form>
      </div>
    </div> 
    
-  </div>
-    
 </div>
 
    <div>
   </div>
   <br>
-  <?php 
-
-$fetch_event = mysqli_query($conn, "SELECT * FROM event");
-
-?>
-<script>
-   $(document).ready(function() {
-   $('#calendar').fullCalendar({
-       events:[
-       <?php
-       while($result = mysqli_fetch_array($fetch_event))
-       { ?>
-      {
-          title: '<?php echo $result['event_name']; ?>',
-          start: '<?php echo $result['event_start_date']; ?>',
-          end: '<?php echo $result['event_end_date']; ?>',
-          color: '<?php echo $result['eventbgcolor']; ?>',
-          textColor: '<?php echo $result['eventColor']; ?>'
-       },
-    <?php } ?>
-             ]
-
-           
-});
-});
-</script>
-
+ 
 </body>  
 </html> 
