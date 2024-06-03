@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task Manager</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<style>
+    .table 
+    {
+    border-collapse: separate;
+    
+    }
+
+  .th{
+
+    cursor: pointer;
+    font-weight: normal;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    border-bottom: 0;
+    border-right: thin dotted gray;
+    height: 50px;
+     
+}
+
+.group{
+
+cursor: pointer;
+font-weight: normal;
+color: gray;
+text-align: center;
+font-weight: bolder;
+border-bottom: 0;
+border-right: thin dotted gray;
+height: 50px;
+ 
+}
+
+</style>
+
+</head>
+<body style="background-color: dimgray;">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title" style="text-align: center;">Task Management</h3>
+
+</div>
+<div class="card-footer">
+
+<button type="button" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>&nbsp;New Item</button>
+<button type="button" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>&nbsp;Search</button>
+<button type="button" class="btn btn-success"><i class="fa-regular fa-user" style="color: #ffffff;"></i>&nbsp;Person</button>
+<button type="button" class="btn btn-danger"><i class="fa-solid fa-filter" style="color: #ffffff;"></i>&nbsp;Filter</button>
+<button type="button" class="btn btn-warning"><i class="fa-solid fa-sort" style="color: #ffffff;"></i>&nbsp;Sort</button>
+<button type="button" class="btn btn-info"><i class="fa-solid fa-eye-low-vision" style="color: #ffffff;"></i>&nbsp;Hide</button>
+<button type="button" class="btn btn-light" style="background-color: #d3d4d5;"><i class="fa-solid fa-layer-group" style="color: #ffffff;"></i>&nbsp;Group By</button>
+<button type="button" class="btn btn-dark"><i class="fa-solid fa-circle-info" style="color: #ffffff;"></i></button>
+
+</div>
+</div>
+
+<table class="table table-bordered table-dark table-sm">
+
+<thead>
+<tr class="th">
+<th scope="col">Item</th>
+<th scope="col">Person</th>
+<th scope="col">Status</th>
+<th scope="col">Date</th>
+<th scope="col">Text</th>
+<th scope="col">Status 1</th>
+<th scope="col">Text 1</th>
+</tr>
+</thead>
+
+<tbody class="table-group-divider">
+
+<tr class="group">
+
+<td>api for ctp list</td>
+<td>Syed</td>
+<td style="background-color: sandybrown;color: gray;">Ongoing</td>
+<td>30-05-2024</td>
+
+</tr>
+
+<tr class="group">
+
+    <td>api for work list</td>
+    <td>Hari</td>
+    <td style="background-color: green;color: white;">Completed</td>
+    <td>31-05-2024</td>
+    
+</tr>
+
+<tr class="group">
+
+    <td>api for task list</td>
+    <td>Saranya</td>
+    <td style="background-color: red;color: white;">Failed</td>
+    <td>01-05-2024</td>
+    
+</tr>
+
+</tbody>
+
+</table>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/92aaf4284a.js" crossorigin="anonymous"></script>
+</body>
+</html>
